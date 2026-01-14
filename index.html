@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D L-System Plant Simulation</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <!-- Bottom Toolbar -->
+    <div id="toolbar">
+        <!-- SVG Icon Buttons -->
+        <button class="icon-btn" id="grow-btn" title="Grow Plant">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22V8M12 8C12 8 12 2 6 2C6 8 12 8 12 8M12 8C12 8 12 2 18 2C18 8 12 8 12 8" />
+            </svg>
+        </button>
+        <button class="icon-btn" id="reset-btn" title="Reset">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+            </svg>
+        </button>
+        <button class="icon-btn" id="wind-btn" title="Wind">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+                <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
+                <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+            </svg>
+        </button>
+        <button class="icon-btn" id="iterations-btn" title="Complexity">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+            </svg>
+        </button>
+        <button class="icon-btn" id="type-btn" title="Plant Type">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22v-7M9 9h6M12 9V2M7 15h10l-1 7H8z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Expandable Panels (hidden by default) -->
+    <div id="wind-panel" class="slider-panel hidden">
+        <span class="panel-label">Wind</span>
+        <input type="range" id="wind-strength" min="0" max="1" step="0.05" value="0.5">
+        <span id="wind-value">0.5</span>
+    </div>
+
+    <div id="iterations-panel" class="slider-panel hidden">
+        <span class="panel-label">Complexity</span>
+        <input type="range" id="iterations" min="1" max="5" value="4">
+        <span id="iter-value">4</span>
+    </div>
+
+    <div id="type-panel" class="slider-panel hidden">
+        <span class="panel-label">Type</span>
+        <select id="plant-type">
+            <option value="tree">🌳 Tree</option>
+            <option value="bush">🌿 Bush</option>
+            <option value="fern">🌿 Fern</option>
+            <option value="flower">🌸 Flower</option>
+            <option value="pine">🌲 Pine</option>
+        </select>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="js/main.js"></script>
+
+    <script>
+        // Toggle panels on icon click
+        document.getElementById('wind-btn').addEventListener('click', () => {
+            togglePanel('wind-panel');
+        });
+        document.getElementById('iterations-btn').addEventListener('click', () => {
+            togglePanel('iterations-panel');
+        });
+        document.getElementById('type-btn').addEventListener('click', () => {
+            togglePanel('type-panel');
+        });
+
+        function togglePanel(panelId) {
+            const panels = document.querySelectorAll('.slider-panel');
+            panels.forEach(p => {
+                if (p.id === panelId) {
+                    p.classList.toggle('hidden');
+                } else {
+                    p.classList.add('hidden');
+                }
+            });
+        }
+
+        // Update displayed values
+        document.getElementById('wind-strength').addEventListener('input', (e) => {
+            document.getElementById('wind-value').textContent = e.target.value;
+        });
+        document.getElementById('iterations').addEventListener('input', (e) => {
+            document.getElementById('iter-value').textContent = e.target.value;
+        });
+    </script>
+</body>
+
+</html>
