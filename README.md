@@ -1,5 +1,7 @@
 # 3D L-System Plant Simulation
 
+🌳 **[Live Demo](https://kryphus.github.io/3d-lsystem-simulation/)** 🌳
+
 An interactive 3D procedural plant growth simulation using Three.js and L-Systems.
 
 ## Features
